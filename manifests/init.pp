@@ -44,4 +44,12 @@ class lms {
   
   # Clean up extranous build stuff
   include lms::cleanup
+  
+  # Get PE Agent
+  include lms::get_agent
+
+  # Install PE agent
+  include lms::pe_agent
+  
+  include epel
 }

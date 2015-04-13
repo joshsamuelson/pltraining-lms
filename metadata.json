@@ -1,0 +1,32 @@
+{
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [ "5.0", "6.0", "7.0" ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.7.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "name": "pltraining-lms",
+  "version": "0.0.1",
+  "author": "pltraining",
+  "summary": "Manages Puppet Labs LMS classroom environments",
+  "license": "Apache 2.0",
+  "source": "https://github.com/puppetlabs/pltraining-lms",
+  "project_page": "https://github.com/puppetlabs/pltraining-lms",
+  "issues_url": "https://github.com/puppetlabs/pltraining-lms/issues",
+  "description": "Important! This is not the module you are looking for\n    unless you are an engineer developing Puppet Labs lms courses!\n    - Configures and sets up lms environment for Puppet LMS training.",
+  "dependencies": [
+    {"name":"pltraining/userprefs",           "version_requirement":">= 0.0.3"},
+    {"name":"stahnma/epel",                   "version_requirement":">= 1.0.2"},
+    {"name":"nanliu/staging"}
+  ]
+}

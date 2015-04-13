@@ -1,7 +1,7 @@
-class lms::pe_agent {
+class lms::pe_agent inherits lms {
   # Install PE agent packages from the local repo
   yumrepo {'pe_agent_local':
-    baseurl  => 'file:///opt/puppet/packages/public/3.7.2/el-6-i386',
+    baseurl  => "file:///opt/puppet/packages/public/${pe_version}/el-${operatingsystemmajrelease}-${architecture}",
     enabled  => '1',
     gpgcheck => '0',
     descr    => 'Local PE agent repo',

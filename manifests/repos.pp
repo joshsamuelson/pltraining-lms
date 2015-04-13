@@ -1,7 +1,7 @@
 class lms::repos {
   # yum repos
   yumrepo { 'puppetlabs':
-    baseurl             => 'http://yum.puppetlabs.com/el/6/products/$basearch/',
+    baseurl             => "http://yum.puppetlabs.com/el/${operatingsystemmajrelease}/products/${architecture}/",
     enabled             => '0',
     priority            => '99',
     gpgcheck            => '0',

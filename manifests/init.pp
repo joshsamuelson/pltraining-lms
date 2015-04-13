@@ -1,4 +1,4 @@
-class lms {
+class lms inherits lms::params {
   # LMS training-specific setup
   File {
     owner => 'root',

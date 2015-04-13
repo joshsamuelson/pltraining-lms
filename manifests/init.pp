@@ -51,4 +51,5 @@ class lms {
   # Install PE agent
   include lms::pe_agent
   
+  include epel
 }

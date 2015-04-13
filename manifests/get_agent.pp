@@ -14,6 +14,7 @@ class lms::get_agent(
   $agent_dir    = "puppet-enterprise-${version}-el-${operatingsystemmajrelease}-${architecture}-agent"
   $agent_file   = "${agent_dir}.tar.gz"
   $url          = "https://s3.amazonaws.com/pe-builds/released/${version}"
+  $installer_build = "el-${operatingsystemmajrelease}-${architecture}"
 
   file { [$puppet_dir,$repo_dir,$public_dir,$version_dir]:
     ensure => directory
@@ -25,7 +26,7 @@ class lms::get_agent(
     require => File[$public_dir]
   }
   #our nice symlink to make the .repo files happy
-  file { "${version_dir}/el-${operatingsystemmajrelease}-${architecture}":
+  file { "${version_dir}/${installer_build}":
     ensure  => link,
     target  => "${public_dir}/${agent_dir}/agent_packages/${installer_build}",
     require => [Staging::Deploy[$agent_file],File[$version_dir]],

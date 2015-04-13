@@ -1,5 +1,7 @@
 class lms::pe_agent (
-  $pe_version = $::lms::params::peversion
+  $pe_version                = $::lms::params::pe_version,
+  $operatingsystemmajrelease = $::operatingsystemmajrelease,
+  $architecture              = $::architecture
 ) inherits ::lms::params {
   # Install PE agent packages from the local repo
   yumrepo {'pe_agent_local':

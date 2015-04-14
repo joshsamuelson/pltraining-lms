@@ -1,4 +1,4 @@
-class lms::install {
+class lms::install_pe {
   
   $prod_module_path = '/etc/puppetlabs/puppet/environments/production/modules'
 

@@ -46,10 +46,14 @@ class lms {
   include lms::cleanup
   
   # Get PE Agent
-  include lms::get_agent
+  #include lms::get_agent
 
   # Install PE agent
-  include lms::pe_agent
+  #include lms::pe_agent
   
   include epel
+
+  # install PE using the LearningVM settings
+  include learning::install
+  include learning::set_defaults
 }

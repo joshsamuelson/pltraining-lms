@@ -56,5 +56,5 @@ class lms {
   # install PE using the LearningVM settings
   include learning::install
   include learning::set_defaults
-  include bootstrap::get_pe
+  class { 'bootstrap::get_pe': version => '3.7.2' }
 }

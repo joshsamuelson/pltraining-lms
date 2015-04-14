@@ -12,7 +12,7 @@ class lms {
   }
 
   file { '/root/lms.answers':
-    soruce => 'puppt:///modules/lms/lms.answers',
+    soruce => 'puppet:///modules/lms/lms.answers',
   }
 
 

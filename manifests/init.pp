@@ -53,8 +53,7 @@ class lms {
   
   include epel
 
-  # install PE using the LearningVM settings
-  include learning::install
-  include learning::set_defaults
+  # Install PE
   class { 'bootstrap::get_pe': version => '3.7.2' }
+  include lms::install_pe
 }

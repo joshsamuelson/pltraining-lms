@@ -56,4 +56,5 @@ class lms {
   # install PE using the LearningVM settings
   include learning::install
   include learning::set_defaults
+  include boostrap::get_pe
 }

@@ -11,6 +11,11 @@ class lms {
     mode   => '0755',
   }
 
+  file { '/root/lms.answers':
+    soruce => 'puppt:///modules/lms/lms.answers',
+  }
+
+
 
   # Add a few extra packages for convenience
   package { [ 'patch', 'screen', 'telnet', 'tree', 'wget' ] :

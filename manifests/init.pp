@@ -44,17 +44,14 @@ class lms {
   # Ruby related settings
   include lms::ruby_settings
 
+  # Add Dependencies needed for LMS labs
+  include lms::lab_deps
+
   # Network setttings
   include lms::network
   
   # Clean up extranous build stuff
   include lms::cleanup
-  
-  # Get PE Agent
-  #include lms::get_agent
-
-  # Install PE agent
-  #include lms::pe_agent
   
   include epel
 

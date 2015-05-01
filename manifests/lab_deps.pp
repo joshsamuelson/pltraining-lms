@@ -19,7 +19,7 @@ class lms::lab_deps{
     require => Vcsrepo['/usr/src/courseware-lms-content'],
   }
   exec { 'copy hiera.yaml':
-    command => 'yes | cp /usr/src/courseware-lms-content/hiera/hiera.yaml /etc/puppetlabs/puppet/hiera.yaml'
+    command => 'yes | cp /usr/src/courseware-lms-content/hiera/hiera.yaml /etc/puppetlabs/puppet/hiera.yaml',
     require => Vcsrepo['/usr/src/courseware-lms-content'],
   }
 

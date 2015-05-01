@@ -53,7 +53,7 @@ class lms {
   include epel
 
   # Install PE
-  class { 'bootstrap::get_pe': version => '3.7.2' }
+  class { 'bootstrap::get_pe': version => '3.8.0' }
   include lms::install_pe
   
   # Add Dependencies needed for LMS labs

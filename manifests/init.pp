@@ -44,9 +44,6 @@ class lms {
   # Ruby related settings
   include lms::ruby_settings
 
-  # Add Dependencies needed for LMS labs
-  include lms::lab_deps
-
   # Network setttings
   include lms::network
   
@@ -58,4 +55,7 @@ class lms {
   # Install PE
   class { 'bootstrap::get_pe': version => '3.7.2' }
   include lms::install_pe
+  
+  # Add Dependencies needed for LMS labs
+  class { 'lms::lab_deps': require => Class['lms::install_pe'] }
 }

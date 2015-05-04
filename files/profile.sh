@@ -8,3 +8,4 @@ echo "**********************************************************"
 TMOUT=900
 readonly TMOUT
 export TMOUT
+export PATH=/opt/puppet/bin:$PATH

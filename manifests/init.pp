@@ -11,12 +11,6 @@ class lms {
     mode   => '0755',
   }
 
-  file { '/root/lms.answers':
-    source => 'puppet:///modules/lms/lms.answers',
-  }
-
-
-
   # Add a few extra packages for convenience
   package { [ 'patch', 'screen', 'telnet', 'tree', 'wget' ] :
     ensure  => present,
@@ -31,6 +25,16 @@ class lms {
 
   # configure user environment
   include userprefs::defaults
+
+  file { '/etc/bash.bash_logout':
+    ensure => present,
+    source => 'puppet:///modules/lms/bash.bash_logout',
+  }
+  file {'/etc/profile.d/profile.sh':
+    ensure => present,
+    mode   => 755,
+    source => 'puppet:///modules/lms/profile.sh',
+  }
 
   # create local repos
   include localrepo
@@ -56,6 +60,9 @@ class lms {
   include epel
 
   # Install PE
-  class { 'bootstrap::get_pe': version => '3.7.2' }
+  class { 'bootstrap::get_pe': 
+    version        => '3.8.0',
+    pe_destination => '/usr/src/'
+  }
   include lms::install_pe
 }

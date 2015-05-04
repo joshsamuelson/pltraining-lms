@@ -12,6 +12,10 @@ class lms::lab_deps{
     recurse => true,
     require => Vcsrepo['/usr/src/courseware-lms-content'],
   }
+  file { '/etc/puppetlabs/puppet/hiera/':
+    ensure => directory,
+    before => File['/etc/puppetlabs/puppet/hiera/hieradata/'],
+  }
   file { '/etc/puppetlabs/puppet/hiera/hieradata/':
     source  => '/usr/src/courseware-lms-content/hiera/hieradata/',
     recurse => true,

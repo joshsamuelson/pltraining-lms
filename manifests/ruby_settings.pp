@@ -14,4 +14,8 @@ class lms::ruby_settings{
     require => Class['localrepo'],
     before  => Class['bootstrap::cache_gems'],
   }
+  package { 'puppet-lint':
+    ensure   => present,
+    provider => gem,
+  }
 }

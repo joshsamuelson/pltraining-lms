@@ -2,15 +2,15 @@ class lms::install_pe {
   
   $prod_module_path = '/etc/puppetlabs/puppet/environments/production/modules'
 
-  exec {'install-pe':
-    # This is a workaround for PE 3.2.0+ offline installations to work"
-    # If you don't reset the rubylib, it'll inherit the one used during kickstart and the installer will blow up.
-    environment => ["RUBYLIB=''"],
-    command     => "/root/puppet-enterprise/puppet-enterprise-installer -D -a /root/lms.answers",
-    creates     => '/usr/local/bin/puppet',
-    logoutput   => true,
-    timeout     => '14400',
-    require     => [Class['bootstrap::get_pe'],Class['localrepo']],
+  file { '/etc/yum.repos.d/puppet_enterprise.repo':
+    ensure => present,
+    # This should probably be parameterized and templatized
+    source => "puppet:///modules/lms/puppet_enterprise-3.8.0-el6.repo"
+  }
+
+  package { ['git','pe-puppetserver','pe-puppet']:
+    ensure  => present,
+    require => [Class['bootstrap::get_pe'],Class['localrepo'],File['/etc/yum.repos.d/puppet_enterprise.repo']],
   }
 
   augeas { "environment timeout":
@@ -18,14 +18,14 @@ class lms::install_pe {
     changes => [
       "set environment_timeout 0",
     ],
-    require => Exec['install-pe'],
+    require => [Package['pe-puppetserver'],Package['pe-puppet']],
   }
   augeas { "disable deprecation warnings":
     context => "/files/etc/puppetlabs/puppet/puppet.conf/main",
     changes => [
       "set disable_warnings deprecations",
     ],
-    require => Exec['install-pe'],
+    require => [Package['pe-puppetserver'],Package['pe-puppet']],
   }
 
   # to use pe_gem to install the following gems, we first need pe_gem installed
@@ -34,7 +34,7 @@ class lms::install_pe {
   exec { 'install trollop':
     command => '/opt/puppet/bin/gem install trollop -v 2.0',
     unless  => '/opt/puppet/bin/gem list trollop -i',
-    require => Exec['install-pe'],
+    require => [Package['pe-puppetserver'],Package['pe-puppet']],
   }
   
   exec { 'install serverspec':
@@ -55,7 +55,19 @@ class lms::install_pe {
   exec { 'install rspec':
     command => '/opt/puppet/bin/gem install rspec -v 2.99.0',
     unless  => '/opt/puppet/bin/gem list rspec -i',
-    require => Exec['install-pe'],
+    require => [Package['pe-puppetserver'],Package['pe-puppet']],
+  }
+
+  file {'/etc/init.d/pe-puppet-master':
+    ensure => present,
+    mode   => 755,
+    source => 'puppet:///modules/lms/pe-puppet-master',
+  }
+
+  service {'pe-puppet-master':
+    ensure  => running,
+    enable => true,
+    require => [Package['pe-puppetserver'],Package['pe-puppet'],File['/etc/init.d/pe-puppet-master']]
   }
 
 }

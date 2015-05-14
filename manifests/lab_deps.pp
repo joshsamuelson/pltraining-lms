@@ -24,7 +24,7 @@ class lms::lab_deps{
   file { '/usr/local/bin/course_selector':
     ensure => present,
     mode   => 755,
-    source => '/usr/src/courseware-lms-content/course_selector',
+    source => '/usr/src/courseware-lms-content/scripts/course_selector.rb',
     require => Vcsrepo['/usr/src/courseware-lms-content'],
   }
 }

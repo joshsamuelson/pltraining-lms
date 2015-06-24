@@ -4,7 +4,7 @@ class lms::lab_deps{
     ensure   => present,
     provider => git,
     source   => 'https://github.com/puppetlabs/courseware-lms-content.git',
-    require  => Class['install_pe'],
+    require  => Package['pe-puppetserver'],
   }
   file { '/etc/puppetlabs/puppet/modules/':
     ensure  => directory,

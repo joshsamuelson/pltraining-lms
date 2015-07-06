@@ -60,8 +60,8 @@ class lms {
   include epel
 
   # Install PE
-  class { 'bootstrap::get_pe': 
-    version        => '3.8.0',
+  class { 'bootstrap::profile::get_pe': 
+    version        => '3.8.1',
     pe_destination => '/usr/src/'
   }
   include lms::install_pe

@@ -11,10 +11,6 @@ class lms::repos {
   package { 'yum-plugin-priorities':
     ensure => installed,
   }
-  package { 'yum-utils':
-    ensure => installed,
-    before => Class['localrepo'],
-  }
   augeas { 'enable_yum_priorities':
     context => '/files/etc/yum/pluginconf.d/priorities.conf/main',
     changes => [

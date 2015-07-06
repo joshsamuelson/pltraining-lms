@@ -18,9 +18,4 @@ class lms::repos {
     ],
     require => Package['yum-plugin-priorities'],
   }
-  yumrepo { [ 'updates', 'base', 'extras']:
-    enabled  => '0',
-    priority => '99',
-    skip_if_unavailable => '1',
-  }
 }

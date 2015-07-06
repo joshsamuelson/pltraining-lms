@@ -10,7 +10,7 @@ class lms::install_pe {
 
   package { ['git','pe-puppetserver','pe-puppet']:
     ensure  => present,
-    require => [Class['bootstrap::get_pe'],Class['localrepo'],File['/etc/yum.repos.d/puppet_enterprise.repo']],
+    require => [Class['bootstrap::profile::get_pe'],Class['localrepo'],File['/etc/yum.repos.d/puppet_enterprise.repo']],
   }
 
   augeas { "environment timeout":

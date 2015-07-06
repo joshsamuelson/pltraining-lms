@@ -18,10 +18,10 @@ class lms {
   }
 
   # Cache forge modules locally in the vm:
-  class { 'bootstrap::cache_modules': cache_dir => '/usr/src/forge' }
+  include bootstrap::profile::cache_modules
 
   # Cache gems locally in the vm:
-  class { 'bootstrap::cache_gems': }
+  include bootstrap::profile::cache_gems
 
   # configure user environment
   include userprefs::defaults

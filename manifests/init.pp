@@ -59,6 +59,8 @@ class lms {
   
   include epel
 
+  include bootstrap::profile::installer_staging
+
   # Install PE
   class { 'bootstrap::profile::get_pe': 
     version        => '3.8.1',

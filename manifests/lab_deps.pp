@@ -1,6 +1,4 @@
 class lms::lab_deps{
-  include lms::lab_repo
-  include lms::course_selector
   file { '/etc/puppetlabs/puppet/modules/':
     ensure  => directory,
     source  => '/usr/src/courseware-lms-content/modules/',

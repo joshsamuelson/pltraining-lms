@@ -1,21 +1,5 @@
 class lms {
-  # LMS training-specific setup
-  File {
-    owner => 'root',
-    group => 'root',
-    mode  => '0644',
-  }
-
-  file { '/usr/bin/envpuppet':
-    source => 'puppet:///modules/bootstrap/envpuppet',
-    mode   => '0755',
-  }
-
-  # Add a few extra packages for convenience
-  package { [ 'patch', 'screen', 'telnet', 'tree', 'wget' ] :
-    ensure  => present,
-    require => Class['localrepo'],
-  }
+  include bootstrap::profile::base
 
   # Cache forge modules locally in the vm:
   include bootstrap::profile::cache_modules
@@ -26,15 +10,7 @@ class lms {
   # configure user environment
   include userprefs::defaults
 
-  file { '/etc/bash.bash_logout':
-    ensure => present,
-    source => 'puppet:///modules/lms/bash.bash_logout',
-  }
-  file {'/etc/profile.d/profile.sh':
-    ensure => present,
-    mode   => 755,
-    source => 'puppet:///modules/lms/profile.sh',
-  }
+  include bootstrap::profile::lms_base
 
   # create local repos
   include localrepo
@@ -43,28 +19,25 @@ class lms {
   include lms::scripts
 
   # Yum related config
-  include lms::repos
+  include bootstrap::profile::yum
 
   # Ruby related settings
-  include lms::ruby_settings
+  include bootstrap::profile::ruby
 
   # Add Dependencies needed for LMS labs
   include lms::lab_deps
 
   # Network setttings
-  include lms::network
+  include bootstrap::profile::network
+  include bootstrap::profile::classroom_ssh
   
-  # Clean up extranous build stuff
-  include lms::cleanup
   
   include epel
 
   include bootstrap::profile::installer_staging
 
   # Install PE
-  class { 'bootstrap::profile::get_pe': 
-    version        => '3.8.1',
-    pe_destination => '/usr/src/'
-  }
+  include bootstrap::profile::get_pe
+
   include lms::install_pe
 }

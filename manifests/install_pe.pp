@@ -7,10 +7,10 @@ class lms::install_pe {
     # This should probably be parameterized and templatized
     source  => "puppet:///modules/lms/puppet_enterprise-3.8.1-el6.repo",
     before  => Class['localrepo'],
-    require => Staging::Extract['/usr/src/installer/bootstrap/usr/puppet-enterprise-3.8.1-el-6-x86_64.tar.gz']
+    require => Staging::Extract['puppet-enterprise-3.8.1-el-6-x86_64.tar.gz']
   }
 
-  staging::extract { '/usr/src/installer/bootstrap/usr/puppet-enterprise-3.8.1-el-6-x86_64.tar.gz':
+  staging::extract { 'puppet-enterprise-3.8.1-el-6-x86_64.tar.gz':
     target  => '/usr/src/',
     creates => '/usr/src/puppet-enterprise-3.8.1-el-6-x86_64/',
     require => Class['bootstrap::profile::get_pe'],

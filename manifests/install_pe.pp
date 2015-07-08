@@ -5,8 +5,9 @@ class lms::install_pe {
   file { '/etc/yum.repos.d/puppet_enterprise.repo':
     ensure => present,
     # This should probably be parameterized and templatized
-    source => "puppet:///modules/lms/puppet_enterprise-3.8.1-el6.repo",
-    before => Class['localrepo']
+    source  => "puppet:///modules/lms/puppet_enterprise-3.8.1-el6.repo",
+    before  => Class['localrepo'],
+    require => Class['bootstrap::profile::get_pe']
   }
 
   package { ['git','pe-puppetserver','pe-puppet']:

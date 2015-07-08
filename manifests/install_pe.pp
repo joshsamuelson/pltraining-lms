@@ -10,7 +10,6 @@ class lms::install_pe {
     require => Staging::Extract['puppet-enterprise-3.8.1-el-6-x86_64.tar.gz']
   }
 
-
   package { ['git','pe-puppetserver','pe-puppet']:
     ensure  => present,
     require => [Class['bootstrap::profile::get_pe'],Class['localrepo'],File['/etc/yum.repos.d/puppet_enterprise.repo']],

@@ -11,7 +11,7 @@ class lms::install_pe {
     require => Staging::Extract['puppet-enterprise-2015.2.0-el-7-x86_64.tar.gz']
   }
 
-  package { ['git','pe-puppetserver','pe-puppet']:
+  package { ['git','pe-puppetserver','puppet-agent']:
     ensure  => present,
     require => [Class['bootstrap::profile::get_pe'],Class['localrepo'],File['/etc/yum.repos.d/puppet_enterprise.repo']],
   }
@@ -21,14 +21,14 @@ class lms::install_pe {
     changes => [
       "set environment_timeout 0",
     ],
-    require => [Package['pe-puppetserver'],Package['pe-puppet']],
+    require => [Package['pe-puppetserver'],Package['puppet-agent']],
   }
   augeas { "disable deprecation warnings":
     context => "/files/etc/puppetlabs/puppet/puppet.conf/main",
     changes => [
       "set disable_warnings deprecations",
     ],
-    require => [Package['pe-puppetserver'],Package['pe-puppet']],
+    require => [Package['pe-puppetserver'],Package['puppet-agent']],
   }
 
   # to use pe_gem to install the following gems, we first need pe_gem installed
@@ -37,7 +37,7 @@ class lms::install_pe {
   exec { 'install trollop':
     command => "${puppet_base_path}/bin/gem install trollop -v 2.0",
     unless  => "${puppet_base_path}/bin/gem list trollop -i",
-    require => [Package['pe-puppetserver'],Package['pe-puppet']],
+    require => [Package['pe-puppetserver'],Package['puppet-agent']],
   }
   
   exec { 'install serverspec':
@@ -58,7 +58,7 @@ class lms::install_pe {
   exec { 'install rspec':
     command => "${puppet_base_path}/bin/gem install rspec -v 2.99.0",
     unless  => "${puppet_base_path}/bin/gem list rspec -i",
-    require => [Package['pe-puppetserver'],Package['pe-puppet']],
+    require => [Package['pe-puppetserver'],Package['puppet-agent']],
   }
 
   file {'/etc/init.d/pe-puppet-master':
@@ -70,7 +70,7 @@ class lms::install_pe {
   service {'pe-puppet-master':
     ensure  => running,
     enable => true,
-    require => [Package['pe-puppetserver'],Package['pe-puppet'],File['/etc/init.d/pe-puppet-master']]
+    require => [Package['pe-puppetserver'],Package['puppet-agent'],File['/etc/init.d/pe-puppet-master']]
   }
 
 }

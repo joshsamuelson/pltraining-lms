@@ -1,13 +1,14 @@
 class lms::install_pe {
-  
-  $prod_module_path = '/etc/puppetlabs/puppet/environments/production/modules'
+ 
+  $puppet_base_path = '/opt/puppetlabs/puppet'
+  $prod_module_path = '/etc/puppetlabs/code/environments/production/modules'
 
   file { '/etc/yum.repos.d/puppet_enterprise.repo':
     ensure => present,
     # This should probably be parameterized and templatized
-    source  => "puppet:///modules/lms/puppet_enterprise-3.8.1-el6.repo",
+    source  => "puppet:///modules/lms/puppet_enterprise-2015.2.0-el6.repo",
     before  => Class['localrepo'],
-    require => Staging::Extract['puppet-enterprise-3.8.1-el-6-x86_64.tar.gz']
+    require => Staging::Extract['puppet-enterprise-2015.2.0-el-6-x86_64.tar.gz']
   }
 
   package { ['git','pe-puppetserver','pe-puppet']:
@@ -34,29 +35,29 @@ class lms::install_pe {
   # using execs now till there is a more graceful solution
   
   exec { 'install trollop':
-    command => '/opt/puppet/bin/gem install trollop -v 2.0',
-    unless  => '/opt/puppet/bin/gem list trollop -i',
+    command => "${puppet_base_path}/bin/gem install trollop -v 2.0",
+    unless  => "${puppet_base_path}/bin/gem list trollop -i",
     require => [Package['pe-puppetserver'],Package['pe-puppet']],
   }
   
   exec { 'install serverspec':
-    command => '/opt/puppet/bin/gem install serverspec -v 1.16.0',
-    unless  => '/opt/puppet/bin/gem list serverspec -i',
+    command => "${puppet_base_path}/bin/gem install serverspec -v 1.16.0",
+    unless  => "${puppet_base_path}/bin/gem list serverspec -i",
     require => Exec['install rspec-its'],
   }
   exec { 'install rspec-its':
-    command => '/opt/puppet/bin/gem install rspec-its -v 1.0.1',
-    unless  => '/opt/puppet/bin/gem list rspec-its -i',
+    command => "${puppet_base_path}/bin/gem install rspec-its -v 1.0.1",
+    unless  => "${puppet_base_path}/bin/gem list rspec-its -i",
     require => Exec['install rspec-core'],
   }
   exec { 'install rspec-core':
-    command => '/opt/puppet/bin/gem install rspec-core -v 2.99.0',
-    unless  => '/opt/puppet/bin/gem list rspec -i',
+    command => "${puppet_base_path}/bin/gem install rspec-core -v 2.99.0",
+    unless  => "${puppet_base_path}/bin/gem list rspec -i",
     require => Exec['install rspec'],
   }
   exec { 'install rspec':
-    command => '/opt/puppet/bin/gem install rspec -v 2.99.0',
-    unless  => '/opt/puppet/bin/gem list rspec -i',
+    command => "${puppet_base_path}/bin/gem install rspec -v 2.99.0",
+    unless  => "${puppet_base_path}/bin/gem list rspec -i",
     require => [Package['pe-puppetserver'],Package['pe-puppet']],
   }
 

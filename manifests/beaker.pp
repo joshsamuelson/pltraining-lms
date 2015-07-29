@@ -6,7 +6,7 @@ class lms::beaker {
   }
   package {['rubygem-nokogiri','gcc-c++']:
     ensure  => present,
-    before  => Package['beaker']
+    before  => Package['beaker'],
     require => Class['epel']
   }
 }

@@ -4,7 +4,7 @@ class lms::beaker {
     ensure   => present,
     provider => 'gem',
   }
-  package {['rubygem-nokogiri','gcc-c++]:
+  package {['rubygem-nokogiri','gcc-c++']:
     ensure => present,
     before => Package['beaker']
   }

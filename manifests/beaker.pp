@@ -4,7 +4,7 @@ class lms::beaker {
     ensure   => present,
     provider => 'gem',
   }
-  package {['zlib-devel','gcc-c++','libstdc++-devel']:
+  package {['zlib-devel','libxml2-devel','gcc-c++','libstdc++-devel']:
     ensure => present,
     before => Package['beaker']
   }

@@ -62,8 +62,8 @@ class lms::install_pe {
   }
 
   file {'/etc/init.d/pe-puppet-master':
-    ensure => present,
-    mode   => 755,
+    ensure => file,
+    mode   => '0755',
     source => 'puppet:///modules/lms/pe-puppet-master',
   }
 
@@ -71,6 +71,12 @@ class lms::install_pe {
     ensure  => running,
     enable => true,
     require => [Package['pe-puppetserver'],Package['puppet-agent'],File['/etc/init.d/pe-puppet-master']]
+  }
+
+  file {'/usr/local/bin/puppet':
+    ensure  => link,
+    target  => "${puppet_base_path}/bin/puppet",
+    require => Package['puppet-agent']
   }
 
 }

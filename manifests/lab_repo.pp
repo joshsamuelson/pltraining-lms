@@ -5,7 +5,7 @@ class lms::lab_repo{
     provider => git,
     source   => 'https://github.com/puppetlabs/courseware-lms-content.git',
   }
-  file { '/etc/puppetlabs/puppet/modules/lms/':
+  file { '/etc/puppetlabs/code/modules/lms/':
     ensure  => directory,
     source  => '/usr/src/courseware-lms-content/modules/lms/',
     recurse => true,

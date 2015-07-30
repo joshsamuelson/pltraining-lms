@@ -12,7 +12,7 @@
 [ -f /etc/sysconfig/pe-puppet-master ] && . /etc/sysconfig/pe-puppet-master
 lockfile=${LOCKFILE-/var/lock/subsys/pe-puppet-master}
 pidfile=${PIDFILE-/var/run/pe-puppet/master.pid}
-puppetd=${PUPPETD-/opt/puppet/bin/puppet}
+puppetd=${PUPPETD-/opt/puppetlabs/puppet/bin/puppet}
 confdir=/etc/puppetlabs/puppet
 RETVAL=0
 

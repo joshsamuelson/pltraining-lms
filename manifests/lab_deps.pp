@@ -1,5 +1,5 @@
 class lms::lab_deps{
-  file { '/etc/puppetlabs/puppet/modules/':
+  file { '/etc/puppetlabs/code/modules/':
     ensure  => directory,
     source  => '/usr/src/courseware-lms-content/modules/',
     recurse => true,

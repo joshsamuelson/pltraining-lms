@@ -1,4 +1,5 @@
 class lms {
+  include lms::beaker
   include lms::lab_deps
   include lms::lab_repo
   include lms::course_selector

@@ -3,6 +3,7 @@ class lms {
   include lms::lab_repo
   include lms::course_selector
   include lms::install_pe
+  include lms::defaults
 
   host { $fqdn:
     ensure       => present,

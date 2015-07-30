@@ -11,5 +11,4 @@ class lms {
     ip           => '127.0.0.1',
     host_aliases => ['localhost','puppet','localhost.localdomain'],
   }
-
 }

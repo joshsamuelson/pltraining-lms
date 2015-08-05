@@ -3,6 +3,6 @@ class lms::lab_deps{
     ensure  => directory,
     source  => '/usr/src/courseware-lms-content/modules/',
     recurse => true,
-    require => Vcsrepo['/usr/src/courseware-lms-content']
+    require => [Vcsrepo['/usr/src/courseware-lms-content'],Class['lms::install_pe']]
   }
 }

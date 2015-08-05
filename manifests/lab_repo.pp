@@ -5,10 +5,4 @@ class lms::lab_repo{
     provider => git,
     source   => 'https://github.com/puppetlabs/courseware-lms-content.git',
   }
-  file { '/etc/puppetlabs/code/modules/lms/':
-    ensure  => directory,
-    source  => '/usr/src/courseware-lms-content/modules/lms/',
-    recurse => true,
-    require => [Vcsrepo['/usr/src/courseware-lms-content'],Class['lms::install_pe']]
-  }
 }
